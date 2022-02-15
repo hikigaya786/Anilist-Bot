@@ -231,11 +231,13 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
     updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
+                          port=int(PORT),
                           url_path=token)
 
     updater.bot.set_webhook(
         'https://anilist-telegram-bot.herokuapp.com/'+token)
+
+    updater.idle()
 
 
 if __name__ == "__main__":
