@@ -9,7 +9,7 @@ from telegram import Bot, BotCommand
 
 
 # setting up port for webhook
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', '8443'))
 
 
 # setting up logger
@@ -232,10 +232,11 @@ def main():
 
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
-                          url_path=token)
+                          url_path=token,
+                          webhook_url='https://anilist-telegram-bot.herokuapp.com/'+token)
 
-    updater.bot.set_webhook(
-        'https://anilist-telegram-bot.herokuapp.com/'+token)
+    # updater.bot.set_webhook(
+    #     'https://anilist-telegram-bot.herokuapp.com/'+token)
 
     updater.idle()
 
