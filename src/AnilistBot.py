@@ -1,6 +1,6 @@
 import logging
 import requests
-import os
+# import os
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
@@ -9,7 +9,7 @@ from telegram import Bot, BotCommand
 
 
 # setting up port for webhook
-PORT = int(os.environ.get('PORT', 5000))
+# PORT = int(os.environ.get('PORT', 5000))
 
 
 # setting up logger
@@ -227,15 +227,18 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('anime', anime_query))
     updater.dispatcher.add_handler(CommandHandler('manga', manga_query))
     updater.dispatcher.add_handler(CommandHandler('help', help_command))
-    updater.dispatcher.add_error_handler(error_handler)
+    # updater.dispatcher.add_error_handler(error_handler)
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
-    updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
-                          url_path=token)
+    updater.start_polling()
 
-    updater.bot.set_webhook(
-        'https://anilist-telegram-bot.herokuapp.com/'+token)
+    updater.idle()
+    # updater.start_webhook(listen="0.0.0.0",
+    #                       port=PORT,
+    #                       url_path=token)
+
+    # updater.bot.set_webhook(
+    #     'https://anilist-telegram-bot.herokuapp.com/'+token)
 
 
 if __name__ == "__main__":
